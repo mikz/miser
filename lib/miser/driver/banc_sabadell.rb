@@ -4,7 +4,7 @@ module Miser
   module Driver
     class BancSabadell < Miser::Driver::Base
       def login(nif, pin)
-        @session.visit('https://www.bancsabadell.com/txbs/ChangeLocale.init.bs?locale=ENG')
+        @session.visit('https://www.bancsabadell.com/txbs/ChangeLocale.init.bs?locale=CAS')
 
         @session.fill_in("NIF", with: nif)
         @session.fill_in("pin", with: pin)
@@ -29,7 +29,7 @@ module Miser
       end
 
       def movements(date)
-        @session.click_on('Account balance and statement')
+        @session.click_on('Saldo y extracto cuentas')
 
         @session.fill_in('dateMovFrom.day', with: date.day)
         @session.fill_in('dateMovFrom.month', with: date.month)
@@ -39,7 +39,7 @@ module Miser
         # select the date period choice
         @session.find('input[type="radio"][name="r1"][value="2"]').click
 
-        @session.click_on('Accept')
+        @session.click_on('Aceptar')
 
         parse_movements
       end
