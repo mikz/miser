@@ -1,5 +1,6 @@
 require 'thor'
 require 'miser/driver/banc_sabadell'
+require 'miser/driver/evo_banco'
 
 begin
   require 'pry'
@@ -29,7 +30,6 @@ module Miser
       puts movements
       puts
       puts "Total Spent: #{movements.reduce(:+).abs}"
-      binding.pry
     end
 
     private

@@ -6,10 +6,20 @@ require 'capybara/selenium/driver'
 module Miser
   module Driver
 
+    Capybara.register_driver(:firefox) do |app|
+      Capybara::Selenium::Driver.new(app, browser: :firefox)
+    end
+
+    Capybara.register_driver(:chrome) do |app|
+      Capybara::Selenium::Driver.new(app, browser: :chrome)
+    end
+
     def self.[](name)
       case name
-        when 'banc_sabadell'
+        when 'banc_sabadell', 'sabadell'
           Miser::Driver::BancSabadell
+        when 'evo_banco', 'evo'
+          Miser::Driver::EvoBanco
       end
     end
 

@@ -19,7 +19,7 @@ miser check banc_sabadell NIF PIN
 ## Usage
 
 You need a Driver that will fetch information from your bank.
-So far there is one for Spanish Banc Sabadell and for EVO Banco is in making. 
+So far there are drivers for Spanish Banc Sabadell and EVO Banco. 
 
 ## Contributing
 
