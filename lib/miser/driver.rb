@@ -11,7 +11,7 @@ module Miser
     end
 
     Capybara.register_driver(:chrome) do |app|
-      Capybara::Selenium::Driver.new(app, browser: :chrome)
+      Capybara::Selenium::Driver.new(app, browser: :chrome, switches: %w[--test-type])
     end
 
     def self.[](name)
