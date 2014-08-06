@@ -1,6 +1,7 @@
 require 'thor'
 require 'miser/driver/banc_sabadell'
 require 'miser/driver/evo_banco'
+require 'rufus-scheduler'
 
 begin
   require 'pry'
@@ -30,6 +31,22 @@ module Miser
       puts movements
       puts
       puts "Total Spent: #{movements.reduce(:+).abs}"
+    end
+
+    desc 'schedule TIME *ARGS', 'schedule check every TIME'
+    def schedule(time, *args)
+      hour, minute = time.split(':')
+      scheduler = Rufus::Scheduler.new
+
+      line = "#{minute || 0} #{hour || 0} * * *"
+      scheduler.cron line do
+        system(Process.argv0, *args)
+      end
+
+      Process.setproctitle "miser schedule #{line}"
+      puts "Scheduled to be executed every #{line}"
+
+      scheduler.join
     end
 
     private

@@ -24,4 +24,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'capybara'
   spec.add_dependency 'selenium-webdriver'
   spec.add_dependency 'thor'
+  spec.add_dependency 'rufus-scheduler', '~> 3.0.8'
 end
