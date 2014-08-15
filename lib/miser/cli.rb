@@ -40,6 +40,7 @@ module Miser
       puts "Please enter what to run and press enter:"
       mode = options[:echo] ? :cooked : :noecho
       command = STDIN.send(mode, &:gets).strip
+      puts
       cmd = "#{Process.argv0} #{command}"
       exec cmd
     end
