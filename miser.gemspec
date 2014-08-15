@@ -26,4 +26,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'thor'
   spec.add_dependency 'rufus-scheduler', '~> 3.0.8'
   spec.add_dependency 'mailgun-ruby', '~> 1.0.2'
+  spec.add_dependency 'headless', '~> 1.0.2'
 end

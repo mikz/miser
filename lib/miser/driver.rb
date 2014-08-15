@@ -31,6 +31,10 @@ module Miser
       DEFAULT_BROWSER = :chrome
 
       def initialize
+        @headless = Headless.new
+        @headless.start
+        at_exit { @headless.destroy }
+
         @session = Capybara::Session.new(browser)
       end
 
