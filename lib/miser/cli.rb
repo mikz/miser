@@ -1,4 +1,5 @@
 require 'thor'
+require 'miser'
 require 'miser/driver/banc_sabadell'
 require 'miser/driver/evo_banco'
 require 'rufus-scheduler'
@@ -15,22 +16,22 @@ module Miser
     desc 'check DRIVER *LOGIN', 'check account with DRIVER'
     option :days, desc: 'how many days back check', required: true, type: :numeric, default: 1
     def check(driver, *login)
-      driver = Miser::Driver[driver].new
+      console = Miser::Report::Console.new
+      movements = movements(driver, *login)
+      report = Miser::Report.new(movements, date)
+      console.deliver(report)
+    end
 
-      driver.login(*login)
-      movements = driver.movements(date)
-
-      movements.select!{ |m| m.days_from_now < days && m.debit? }
-
-      if movements.empty?
-        puts 'No movements.'
-        return
-      end
-
-      puts "Movements:"
-      puts movements
-      puts
-      puts "Total Spent: #{movements.reduce(:+).abs}"
+    option :api_key, desc: 'Mailgun API key', required: true
+    option :to, desc: 'email address', required: true
+    option :from, desc: 'email address', required: true
+    option :days, desc: 'how many days back check', required: true, type: :numeric, default: 1
+    desc 'report DRIVER *LOGIN', 'check your account and deliver the report to email'
+    def report(driver, *login)
+      mail = Miser::Report::Mailgun.new(options[:api_key], options[:from], options[:to])
+      movements = movements(driver, *login)
+      report = Miser::Report.new(movements, date)
+      mail.deliver(report)
     end
 
     desc 'schedule TIME *ARGS', 'schedule check every TIME'
@@ -50,6 +51,15 @@ module Miser
     end
 
     private
+
+    def movements(driver, *login)
+      driver = Miser::Driver[driver].new
+      driver.login(*login)
+
+      movements = driver.movements(date)
+      movements.select{ |m| m.days_from_now < days && m.debit? }
+    end
+
 
     def days
       options[:days].to_f

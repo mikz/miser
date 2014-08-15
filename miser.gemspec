@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Miser::VERSION
   spec.authors       = ["Michal Cichra"]
   spec.email         = ["michal@o2h.cz"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{Your personal finance assistant.}
+  spec.description   = %q{Will annoy you every day with how much you spent last day.}
   spec.homepage      = ""
   spec.license       = "MIT"
 
@@ -25,4 +25,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'selenium-webdriver'
   spec.add_dependency 'thor'
   spec.add_dependency 'rufus-scheduler', '~> 3.0.8'
+  spec.add_dependency 'mailgun-ruby', '~> 1.0.2'
 end

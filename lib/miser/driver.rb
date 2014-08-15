@@ -6,6 +6,8 @@ require 'capybara/selenium/driver'
 module Miser
   module Driver
 
+    Capybara.default_wait_time = 30
+
     Capybara.register_driver(:firefox) do |app|
       Capybara::Selenium::Driver.new(app, browser: :firefox)
     end
@@ -16,10 +18,12 @@ module Miser
 
     def self.[](name)
       case name
-        when 'banc_sabadell', 'sabadell'
+        when 'banc_sabadell', 'sabadell', 'bs'
           Miser::Driver::BancSabadell
         when 'evo_banco', 'evo'
           Miser::Driver::EvoBanco
+        else
+          raise "unknown driver '#{name}'"
       end
     end
 

@@ -1,5 +1,5 @@
 require 'miser/version'
-require 'fileutils'
 
 module Miser
+  autoload :Report, 'miser/report'
 end

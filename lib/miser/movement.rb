@@ -27,7 +27,7 @@ module Miser
     end
 
     def to_s
-      "#{@date}: #{@amount} (#{@purpose})"
+      "#{@date.to_time.utc}: #{@amount} (#{@purpose})"
     end
 
     def days_from_now
