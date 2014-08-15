@@ -39,7 +39,7 @@ module Miser
       hour, minute = time.split(':')
       scheduler = Rufus::Scheduler.new
 
-      line = "#{minute || 0} #{hour || 0} * * *"
+      line = "#{minute || '*'} #{hour || '*'} * * *"
       scheduler.cron line do
         system(Process.argv0, *args)
       end
