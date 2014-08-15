@@ -2,7 +2,7 @@ require 'capybara'
 require 'miser'
 require 'miser/movement'
 require 'capybara/selenium/driver'
-require 'hedless'
+require 'headless'
 
 module Miser
   module Driver
