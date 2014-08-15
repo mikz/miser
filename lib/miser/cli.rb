@@ -34,6 +34,16 @@ module Miser
       mail.deliver(report)
     end
 
+    desc 'interactive', 'run interactive mode'
+    option :echo, type: :boolean, desc: 'no echo mode', default: false
+    def interactive
+      puts "Please enter what to run and press enter:"
+      mode = options[:echo] ? :cooked : :noecho
+      command = STDIN.send(mode, &:gets).strip
+      cmd = "#{Process.argv0} #{command}"
+      exec cmd
+    end
+
     desc 'schedule TIME *ARGS', 'schedule check every TIME'
     def schedule(time, *args)
       hour, minute = time.split(':')
