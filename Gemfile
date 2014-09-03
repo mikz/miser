@@ -5,5 +5,4 @@ gemspec
 
 group :development do
   gem 'pry-byebug'
-  gem 'coveralls', require: false
 end
