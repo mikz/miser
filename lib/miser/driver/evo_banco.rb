@@ -40,7 +40,7 @@ module Miser
           purpose = div.css('a')
           amount, _balance = fragment.css('td > span[id] > span[id]')
 
-          Movement.new(
+          Miser::Movement.new(
               date: DateTime.strptime(date, '%d/%m/%Y %H:%M:%S'),
               amount: amount.text.to_f,
               purpose: purpose.text

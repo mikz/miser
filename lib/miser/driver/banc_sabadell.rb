@@ -20,7 +20,7 @@ module Miser
           date = fragment.css('td[headers=date]').attribute('abbr')
           purpose = fragment.css('td[headers=purpose]')
 
-          Movement.new(
+          Miser::Movement.new(
               date: DateTime.strptime(date.value, '%y%m%d%H%M%S'),
               amount: amount.value.to_f,
               purpose: purpose.text
