@@ -15,8 +15,11 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
+require 'codeclimate-test-reporter'
+CodeClimate::TestReporter.start
+
 require 'webmock/rspec'
-WebMock.disable_net_connect!
+WebMock.disable_net_connect!(allow: 'codeclimate.com')
 
 RSpec.configure do |config|
   # These two settings work together to allow you to limit a spec run

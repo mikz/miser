@@ -5,4 +5,5 @@ gemspec
 
 group :development do
   gem 'pry-byebug'
+  gem 'codeclimate-test-reporter', require: false
 end
