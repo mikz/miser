@@ -14,15 +14,13 @@ module Miser
 
       def parse_movements
         @session.all('table.sorted > tbody > tr').map do |row|
-          fragment = Nokogiri::HTML::DocumentFragment.parse(row['innerHTML'].strip)
-
-          amount = fragment.css('td[headers=amount]').attribute('title')
-          date = fragment.css('td[headers=date]').attribute('abbr')
-          purpose = fragment.css('td[headers=purpose]')
+          amount = row.find('td[headers=amount]')['title']
+          date = row.find('td[headers=date]')['abbr']
+          purpose = row.find('td[headers=purpose]')
 
           Miser::Movement.new(
-              date: DateTime.strptime(date.value, '%y%m%d%H%M%S'),
-              amount: amount.value.to_f,
+              date: DateTime.strptime(date, '%y%m%d%H%M%S'),
+              amount: amount.to_f,
               purpose: purpose.text
           )
         end

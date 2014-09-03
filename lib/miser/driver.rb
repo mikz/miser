@@ -8,6 +8,12 @@ module Miser
 
     Capybara.default_wait_time = 30
 
+    Capybara.register_driver :poltergeist do |app|
+      Capybara::Poltergeist::Driver.new(app,
+                                        js_errors: false,
+                                        phantomjs_options: %w[--ignore-ssl-errors=no])
+    end
+
     def self.[](name)
       case name
         when 'banc_sabadell', 'sabadell', 'bs'
