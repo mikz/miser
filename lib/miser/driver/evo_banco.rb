@@ -33,14 +33,13 @@ module Miser
 
       def parse_movements
         @session.all('table.movements > tbody > tr').map do |row|
-          fragment = Nokogiri::HTML::DocumentFragment.parse(row['innerHTML'].strip)
-          div = fragment.css('td div')
+          div = row.find('td div')
 
           date = div.text.match(/Transaction date: (.{19})/)[1]
-          purpose = div.css('a')
-          amount, _balance = fragment.css('td > span[id] > span[id]')
+          purpose = div.find('a')
+          amount = row.all('td > span[id] > span[id]').first
 
-          Movement.new(
+          Miser::Movement.new(
               date: DateTime.strptime(date, '%d/%m/%Y %H:%M:%S'),
               amount: amount.text.to_f,
               purpose: purpose.text

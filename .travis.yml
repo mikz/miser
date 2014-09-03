@@ -1,0 +1,8 @@
+language: ruby
+rvm:
+- 2.1.2
+- 2.1.1
+- 2.1.0
+env:
+  global:
+    secure: HLAI/DGxeevdYmKpasrZbQu0wxGySUi1ZboNewecRCBRQJJj1285QHbENjLo6MqDdDA35battNbmKKGyUI4LGwnGcXTVLfDSuGGeEWjUjLthTsQo7XYFKIIyY6h2RNvMCEcga17e2olH21FhFRjeaHuH2QvLITtt3V4KCVLxiS0=

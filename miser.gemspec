@@ -18,13 +18,16 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.6"
-  spec.add_development_dependency "rake"
+  spec.required_ruby_version = '>= 2.1.0'
+
+  spec.add_development_dependency 'bundler', '~> 1.6'
+  spec.add_development_dependency 'rake'
+  spec.add_development_dependency 'rspec'
+  spec.add_development_dependency 'webmock'
 
   spec.add_dependency 'capybara'
-  spec.add_dependency 'selenium-webdriver'
+  spec.add_dependency 'poltergeist'
   spec.add_dependency 'thor'
   spec.add_dependency 'rufus-scheduler', '~> 3.0.8'
   spec.add_dependency 'mailgun-ruby', '~> 1.0.2'
-  spec.add_dependency 'headless', '~> 1.0.2'
 end

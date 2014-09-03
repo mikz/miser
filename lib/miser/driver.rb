@@ -1,20 +1,17 @@
 require 'capybara'
 require 'miser'
 require 'miser/movement'
-require 'capybara/selenium/driver'
-require 'headless'
+require 'capybara/poltergeist'
 
 module Miser
   module Driver
 
     Capybara.default_wait_time = 30
 
-    Capybara.register_driver(:firefox) do |app|
-      Capybara::Selenium::Driver.new(app, browser: :firefox)
-    end
-
-    Capybara.register_driver(:chrome) do |app|
-      Capybara::Selenium::Driver.new(app, browser: :chrome, switches: %w[--test-type --no-sandbox])
+    Capybara.register_driver :poltergeist do |app|
+      Capybara::Poltergeist::Driver.new(app,
+                                        js_errors: false,
+                                        phantomjs_options: %w[--ignore-ssl-errors=no])
     end
 
     def self.[](name)
@@ -29,13 +26,10 @@ module Miser
     end
 
     class Base
-      DEFAULT_BROWSER = :chrome
+      DEFAULT_BROWSER = :poltergeist
+      attr_reader :session
 
       def initialize
-        @headless = Headless.new
-        @headless.start
-        at_exit { @headless.destroy }
-
         @session = Capybara::Session.new(browser)
       end
 

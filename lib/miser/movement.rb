@@ -14,6 +14,10 @@ module Miser
       @amount + amount
     end
 
+    def abs
+      @amount.abs
+    end
+
     def debit?
       @amount < ZERO
     end
