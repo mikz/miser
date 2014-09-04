@@ -26,6 +26,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'webmock'
 
   spec.add_dependency 'capybara'
+  spec.add_dependency 'sinatra'
   spec.add_dependency 'poltergeist'
   spec.add_dependency 'thor'
   spec.add_dependency 'rufus-scheduler', '~> 3.0.8'

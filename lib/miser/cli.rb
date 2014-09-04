@@ -1,7 +1,5 @@
 require 'thor'
 require 'miser'
-require 'miser/driver/banc_sabadell'
-require 'miser/driver/evo_banco'
 require 'rufus-scheduler'
 
 begin
@@ -12,6 +10,11 @@ end
 module Miser
   class CLI < Thor
     DATE_FORMAT = '%Y-%m-%d'.freeze
+
+    desc 'server', 'start miser server'
+    def server(options = {})
+      Miser::Server.run!(options)
+    end
 
     desc 'check DRIVER *LOGIN', 'check account with DRIVER'
     option :days, desc: 'how many days back check', required: true, type: :numeric, default: 1
