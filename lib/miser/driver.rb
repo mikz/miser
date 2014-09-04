@@ -5,6 +5,8 @@ require 'capybara/poltergeist'
 
 module Miser
   module Driver
+    autoload :BancSabadell, 'miser/driver/banc_sabadell'
+    autoload :EvoBanco, 'miser/driver/evo_banco'
 
     Capybara.default_wait_time = 30
 
