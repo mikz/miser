@@ -28,7 +28,7 @@ describe Miser::Driver::Base do
 
     it { is_expected.to be_a(Capybara::Session) }
 
-    it 'visits google.com' do
+    it 'visits google.com', slow: true do
       page = session.visit('https://google.com')
       expect(page).to eq('status' => 'success')
     end
