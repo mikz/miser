@@ -6,8 +6,11 @@ RSpec::Core::RakeTask.new(:spec)
 
 task :default => :spec
 
-task :console do
+task :app do
   require 'miser'
+end
+
+task console: :app  do
   begin
     require 'pry'
     Pry.toplevel_binding.pry
@@ -15,5 +18,15 @@ task :console do
     require 'irb'
     ARGV.clear
     IRB.start
+  end
+end
+
+namespace :db do
+  desc 'Run DB migrations'
+  task migrate: :app do
+    require 'sequel'
+    Sequel.extension :migration
+
+    Sequel::Migrator.apply(Miser::Server.database, 'db/migrations')
   end
 end

@@ -6,6 +6,7 @@ module Miser
 
     def passphrase=(passphrase)
       @unlocked = true
+      # db[:store].select{ Sequel.function(:pgp_pub_encrypt, 'text', Sequel.function(:dearmor, 'key')) }.sql
     end
 
     def locked?

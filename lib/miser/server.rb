@@ -1,8 +1,10 @@
 require 'sinatra'
+require 'sequel'
 
 module Miser
   class Server < Sinatra::Base
-    set(:store, Miser::SecureStore.new)
+    set :store, Miser::SecureStore.new
+    set :database, Sequel.connect(ENV.fetch('DATABASE_URL', 'postgres://localhost/miser'))
 
     enable :inline_templates
     disable :show_exceptions
