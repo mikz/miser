@@ -22,11 +22,33 @@ task console: :app  do
 end
 
 namespace :db do
+  task create: :app do
+    system('createdb',  Miser::Database.opts.fetch(:database))
+  end
+
+  task drop: :app do
+    system('dropdb',  Miser::Database.opts.fetch(:database))
+  end
+
   desc 'Run DB migrations'
   task migrate: :app do
     require 'sequel'
     Sequel.extension :migration
 
-    Sequel::Migrator.apply(Miser::Server.database, 'db/migrations')
+    Sequel::Migrator.apply(Miser::Database, 'db/migrations')
   end
+end
+
+task :gpg do
+  require 'miser'
+
+  gpg = Miser::GPG.new
+
+  gpg.generate(passphrase: ENV['PASSPHRASE'])
+
+  Miser::KeyStore.import(gpg)
+
+  puts gpg.public_key
+  puts
+  puts gpg.private_key
 end

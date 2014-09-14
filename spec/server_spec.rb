@@ -1,6 +1,6 @@
 require 'miser'
 
-describe Miser::Server do
+describe Miser::App do
   include Rack::Test::Methods
   subject(:app) { described_class }
 
