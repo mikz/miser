@@ -17,11 +17,12 @@ module Miser
     end
 
     def batch_script(**options)
+      key_length = ENV.fetch('MISER_KEY_LENGTH') { 2048 }
       general = {
         'Key-Type' => 'DSA',
-        'Key-Length' => 1024,
+        'Key-Length' => key_length,
         'Subkey-Type' => 'ELG-E',
-        'Subkey-Length' => 1024,
+        'Subkey-Length' => key_length,
         'Name-Real' => 'Miser Encryption Key',
         'Expire-Date' => '10y'
       }.merge(options)

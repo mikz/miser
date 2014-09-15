@@ -10,21 +10,26 @@ describe Miser::GPG do
     it { is_expected.to start_with('Key-Type: DSA') }
   end
 
-  context 'public_key' do
-    subject(:public_key) { gpg.public_key }
+  context 'key generation' do
+    # cached version because key generation is expensive
+    gpg = described_class.new
 
-    before { expect(gpg.generate).to be }
+    before(:all) { expect(gpg.generate).to be }
 
-    it { is_expected.to start_with('-----BEGIN PGP PUBLIC KEY BLOCK-----')}
-    it { is_expected.to end_with('-----END PGP PUBLIC KEY BLOCK-----')}
+    context 'public_key' do
+      subject(:public_key) { gpg.public_key }
+
+
+      it { is_expected.to start_with('-----BEGIN PGP PUBLIC KEY BLOCK-----')}
+      it { is_expected.to end_with('-----END PGP PUBLIC KEY BLOCK-----')}
+    end
+
+    context 'private_key' do
+      subject(:public_key) { gpg.private_key }
+
+      it { is_expected.to start_with('-----BEGIN PGP PRIVATE KEY BLOCK-----')}
+      it { is_expected.to end_with('-----END PGP PRIVATE KEY BLOCK-----')}
+    end
   end
 
-  context 'private_key' do
-    subject(:public_key) { gpg.private_key }
-
-    before { expect(gpg.generate).to be }
-
-    it { is_expected.to start_with('-----BEGIN PGP PRIVATE KEY BLOCK-----')}
-    it { is_expected.to end_with('-----END PGP PRIVATE KEY BLOCK-----')}
-  end
 end

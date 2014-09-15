@@ -3,6 +3,8 @@ rvm:
 - 2.1.2
 - 2.1.1
 - 2.1.0
+env:
+  - MISER_KEY_LENGTH=1024
 before_script:
   - bundle exec rake db:create db:migrate
   - bundle exec rake gpg
