@@ -21,6 +21,13 @@ CodeClimate::TestReporter.start
 require 'webmock/rspec'
 WebMock.disable_net_connect!(allow: 'codeclimate.com')
 
+begin
+  require 'pry'
+rescue LoadError
+end
+
+ENV['DATABASE_URL'] = ENV.fetch('DATABASE_URL', 'postgres://localhost/miser_test')
+
 RSpec.configure do |config|
   # These two settings work together to allow you to limit a spec run
   # to individual examples or groups you care about by tagging them with

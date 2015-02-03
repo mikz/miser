@@ -16,6 +16,10 @@ module Miser
                                         phantomjs_options: %w[--ignore-ssl-errors=no])
     end
 
+    def self.new(name)
+      self[name].new
+    end
+
     def self.[](name)
       case name
         when 'banc_sabadell', 'sabadell', 'bs'
