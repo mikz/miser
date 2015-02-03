@@ -1,4 +1,6 @@
 require 'miser'
+require 'spec_helper'
+require 'rack/test'
 
 describe Miser::App do
   include Rack::Test::Methods
@@ -10,11 +12,24 @@ describe Miser::App do
     expect(app.store).to be(app.store)
   end
 
+
   context '/' do
-    it 'works' do
-      get '/'
-      expect(last_response).to be_ok
-      expect(last_response).to match(/Please enter the password/)
+
+    it 'allows setup' do
+      get('/')
+    puts last_response.inspect
+      expect(last_response).to be_redirect
+      expect(last_response).to match(/Please set up your Miser with password:/)
+    end
+
+    context 'when set up' do
+
+      before { app.store.setup('password') }
+
+      it 'asks for password' do
+        get('/')
+        expect(last_response).to be_ok
+      end
     end
   end
 

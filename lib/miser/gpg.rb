@@ -27,7 +27,7 @@ module Miser
         'Expire-Date' => '10y'
       }.merge(options)
 
-      script = general.select{|_k,v| v }.map {|line| line.compact.join(': ') }
+      script = general.reject{|_k,v| v.to_s.empty? }.map {|line| line.compact.join(': ') }
 
       control = {
           pubring:  @public_key_file.path,

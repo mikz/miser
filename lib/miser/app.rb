@@ -13,9 +13,27 @@ module Miser
     end
 
     get '/' do
+      if store.empty?
+        redirect '/setup'
+      end
+
       @drivers = ['sabadell', 'evo']
       @credentials = Credentials.all
       erb store.state
+    end
+
+    get '/setup' do
+      erb :setup
+    end
+
+    post '/setup' do
+      if params[:password] == params[:password_confirmation]
+        store.setup(params[:password])
+        redirect '/'
+      else
+        @error = 'password does not match the confirmation'
+        erb :setup
+      end
     end
 
     post '/unlock' do
@@ -72,6 +90,16 @@ __END__
 </select>
 <input type='text' name='username'/>
 <input type='password' name='password'/>
+<input type=submit>
+</form>
+</p>
+
+@@ setup
+<p>Your miser is waiting for setup.</p>
+<form action='/setup' method='post'>
+<% if @error %><p style=color:red><%= @error %></p><% end %>
+<p><label>Master Password: <input type='password' name='password'/></label></p>
+<p><label>Master Password confirmation: <input type='password' name='password_confirmation'/></label></p>
 <input type=submit>
 </form>
 </p>

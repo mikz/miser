@@ -35,6 +35,17 @@ module Miser
       @unlocked
     end
 
+    def empty?
+      @key_store.empty?
+    end
+
+    def setup(password)
+      gpg = Miser::GPG.new
+      gpg.generate(passphrase: password)
+      @key_store.import(gpg)
+      self.passphrase = password
+    end
+
     def state
       locked? ? :locked : :unlocked
     end
